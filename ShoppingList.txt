@@ -1,0 +1,2 @@
+id=14 | name=Coca Cola | amount=3
+id=16 | name=Barilla | amount=3
