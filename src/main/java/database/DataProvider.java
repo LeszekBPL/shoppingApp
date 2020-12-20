@@ -61,42 +61,44 @@ public class DataProvider {
         try {
             InformationsDto infDto = foodFactsService.food(barcode);
             System.out.println("podaj ilość");
-            int amount= scanner.nextInt();
-            ShoppingList shList=new ShoppingList(infDto.getProduct_name(),amount);
+            int amount = scanner.nextInt();
+            ShoppingList shList = new ShoppingList(infDto.getProduct_name(), amount);
             return shList;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public List<ShoppingList>getAll(){
-        List<ShoppingList> result=new ArrayList<>();
-        try(Session session= HibernateUtil.getSessionFactory().openSession();)
-        {
-            CriteriaBuilder criteriaBuilder=session.getCriteriaBuilder();
-            CriteriaQuery<ShoppingList> query= criteriaBuilder.createQuery(ShoppingList.class);
-            Root<ShoppingList> table= query.from(ShoppingList.class);
+
+    public List<ShoppingList> getAll() {
+        List<ShoppingList> result = new ArrayList<>();
+        try (Session session = HibernateUtil.getSessionFactory().openSession();) {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<ShoppingList> query = criteriaBuilder.createQuery(ShoppingList.class);
+            Root<ShoppingList> table = query.from(ShoppingList.class);
             query.select(table);
-            List<ShoppingList>list=session.createQuery(query).list();
+            List<ShoppingList> list = session.createQuery(query).list();
             result.addAll(list);
-        }catch (HibernateException he){
+        } catch (HibernateException he) {
             System.err.println("getAll error");
             he.printStackTrace();
         }
         return result;
     }
-    public void shoppingListToTxT(){
-        List<ShoppingList> shoppingLists=getAll();
+
+    public void shoppingListToTxT() {
+        List<ShoppingList> shoppingLists = getAll();
         try {
-            PrintWriter writer=new PrintWriter("ShoppingList.txt");
-            for (ShoppingList shoppingList:shoppingLists) {
+            PrintWriter writer = new PrintWriter("ShoppingList.txt");
+            for (ShoppingList shoppingList : shoppingLists) {
                 writer.printf("id=%d | name=%s | amount=%d\n",
                         shoppingList.getId(),
-                        shoppingList.getName(),shoppingList.getAmount());}
+                        shoppingList.getName(), shoppingList.getAmount());
+            }
             writer.close();
 
-            }catch (FileNotFoundException fnf){
-                fnf.printStackTrace();
+        } catch (FileNotFoundException fnf) {
+            fnf.printStackTrace();
         }
 
     }

@@ -31,7 +31,7 @@ public class Main {
                 session.flush();
                 break;
             case (2):
-                ShoppingList shoppingList= dataProvider.shListProvider();
+                ShoppingList shoppingList = dataProvider.shListProvider();
                 session.persist(shoppingList);
                 session.flush();
                 break;
@@ -40,13 +40,13 @@ public class Main {
                 System.out.println("1 wyczyść listę zakupów");
                 System.out.println("2 eksportuj listę do pliku");
                 System.out.println("0  powrót");
-                int option=scanner.nextInt();
-                switch (option){
+                int option = scanner.nextInt();
+                switch (option) {
                     case (1):
-                        NativeQuery<ShoppingList>querySL=session.createNativeQuery("delete from ShoppingList",ShoppingList.class);
+                        NativeQuery<ShoppingList> querySL = session.createNativeQuery("delete from ShoppingList", ShoppingList.class);
                         querySL.executeUpdate();
                         break;
-                    case(2):
+                    case (2):
                         dataProvider.shoppingListToTxT();
 
                         break;
@@ -55,18 +55,17 @@ public class Main {
                 }
                 break;
             case (4):
-                NativeQuery<Favourites>favouritesNativeQuery=session.createNativeQuery("select *freom Favourites",Favourites.class);
+                NativeQuery<Favourites> favouritesNativeQuery = session.createNativeQuery("select *freom Favourites", Favourites.class);
                 favouritesNativeQuery.getResultList().forEach(System.out::println);
                 System.out.println("1 wyczyść ulubione");
                 System.out.println("0  powrót");
-                int decission=scanner.nextInt();
-                switch (decission){
+                int decission = scanner.nextInt();
+                switch (decission) {
                     case (1):
-                        NativeQuery<Favourites>querySL=session.createNativeQuery("delete from Favourites",Favourites.class);
+                        NativeQuery<Favourites> querySL = session.createNativeQuery("delete from Favourites", Favourites.class);
                         querySL.executeUpdate();
                         break;
-                    case(2):
-                        break;
+
                     case (0):
                         return;
                 }

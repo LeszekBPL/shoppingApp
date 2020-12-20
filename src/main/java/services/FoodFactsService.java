@@ -31,37 +31,36 @@ public class FoodFactsService {
     }
 
     private String get(String uri) throws IOException {
-       try{
-           URL url = new URL(uri);
+        try {
+            URL url = new URL(uri);
 
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String line;
-        StringBuilder stringBuilder = new StringBuilder();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
 
-        while ((line = in.readLine()) != null) {
-            stringBuilder.append(line);
+            while ((line = in.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            in.close();
+
+            if (stringBuilder.toString() == "") {
+                throw new IOException("Nie znaleziono produktu");
+
+
+            }
+
+            return stringBuilder.toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        in.close();
-
-        if (stringBuilder.toString() == "") {
-            throw new IOException("Nie znaleziono produktu");
-
-
-        }
-
-        return stringBuilder.toString();
-       }
-       catch (MalformedURLException e){
-           e.printStackTrace();
-
-       }catch (IOException e){
-           e.printStackTrace();
-       }
-       return null;
+        return null;
 
     }
 
-    }
+}
 

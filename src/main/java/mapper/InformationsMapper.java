@@ -5,8 +5,8 @@ import database.Informations;
 import dto.InformationsDto;
 
 public class InformationsMapper {
-    public static Informations mapInformationsDtoToInformations(InformationsDto dto){
-        Informations informations=new Informations();
+    public static Informations mapInformationsDtoToInformations(InformationsDto dto) {
+        Informations informations = new Informations();
         informations.setCode(dto.getCode());
         informations.setBrands(dto.getBrands());
         informations.setProduct_name(dto.getProduct_name());
